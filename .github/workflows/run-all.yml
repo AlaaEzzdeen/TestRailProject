@@ -7,7 +7,7 @@ on:
       - '*'
   
 name: Test
-
+ 
 env:
   TESTRAIL_USER: gr.eg.or.ymj.en.son6@gmail.com
   TESTRAIL_USER_PW: TestRail*1
