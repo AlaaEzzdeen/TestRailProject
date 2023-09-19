@@ -37,13 +37,13 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           pip install trcli
-          junitparser merge --glob "cypress/sample-reports/TEST-*" "cypress/sample-reports/junit-report.xml"
+          junitparser merge --glob "reports/TEST-*" "reports/junit-report.xml"
           trcli -y \
             -h ${{ env.TESTRAIL_URL }} \
             --project "${{ env.PROJECT_NAME }}" \
             -u ${{ env.TESTRAIL_USER }} \
             -p "${{ env.TESTRAIL_USER_PW }}" \
             parse_junit \
-            -f "cypress/sample-reports/junit-report.xml" \
+            -f "reports/junit-report.xml" \
             --title "Cypress automated tests" \
             --run-description "GitHub workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
