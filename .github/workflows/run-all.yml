@@ -28,7 +28,6 @@ jobs:
         continue-on-error: true
         uses: cypress-io/github-action@v5.3.0
         with:
-          working-directory: ${{ env.WORKING_DIR }}
           command: npx cypress run --reporter junit --reporter-options mochaFile=reports/TEST-[hash].xml
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
@@ -46,6 +45,5 @@ jobs:
             -p "${{ env.TESTRAIL_USER_PW }}" \
             parse_junit \
             -f "reports/junit-report.xml" \
-            --section-id "2407" \
             --title "Cypress automated tests" \
             --run-description "GitHub workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
