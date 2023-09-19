@@ -24,7 +24,7 @@ jobs:
       if: always()
       run: |
         pip install trcli
-        junitparser merge --glob "../../sample/sample_reports/TEST-*" "../../sample/sample_reports/junit-report.xml"
+        junitparser merge --glob "sample/sample_reports/TEST-*" "sample/sample_reports/junit-report.xml"
         trcli -y \
           -h "https://swe401pro.testrail.io/" \
           --project "SWE 401" \
