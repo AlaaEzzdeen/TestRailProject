@@ -2,5 +2,8 @@
   "name": "TestRailProject",
   "lockfileVersion": 3,
   "requires": true,
-  "packages": {}
+  "packages": {},
+  "devDependencies": {
+    "cypress": "^13.2.0"
+  }
 }
