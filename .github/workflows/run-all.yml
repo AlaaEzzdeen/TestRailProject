@@ -15,7 +15,7 @@ env:
   PROJECT_NAME: SWE 401
 
 jobs: 
-
+ 
   cypress:
     name: Cypress
     runs-on: ubuntu-latest
