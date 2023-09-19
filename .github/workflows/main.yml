@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - main
+name: Automated Testing
+
+jobs: 
+  automated_tests: 
+    name: Cypress automated tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Execute Cypress tests
+      uses: cypress-io/github-action@v5.3.0
+      with: 
+        command: npx cypress run --reporter junit --reporter-options mochaFile=reports/TEST-[hash].xml
+    - name: Setup Python
+      if: always()
+      uses: actions/setup-python@v4.5.0
+      with: 
+        python-version: '3.x'
+    - name: Execute TestRail CLI to upload results
+      if: always()
+      run: |
+        pip install trcli
+        junitparser merge --glob "reports/TEST-*" "reports/junit-report.xml"
+        trcli -y \
+          -h "https://swe401pro.testrail.io/" \
+          --project "SWE 401" \
+          -u "gr.eg.or.ymj.en.son6@gmail.com"
+          -p "TestRail*1"
+          parse_junit \
+            -f "reports/junit-report.xml" \
+            --title "Cypress automated tests" \
+            --run-description "GitHub workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
