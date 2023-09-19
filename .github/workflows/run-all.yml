@@ -31,7 +31,7 @@ jobs:
           command: npx cypress run --reporter junit --reporter-options mochaFile=reports/TEST-[hash].xml
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
-        with:
+        with: 
           python-version: '3.x'
       - name: Execute TestRail CLI to upload results
         working-directory: ${{ env.WORKING_DIR }}
