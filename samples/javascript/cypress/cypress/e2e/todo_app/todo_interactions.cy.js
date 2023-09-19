@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
- 
+
 describe('[interactions] Todo app list with a checked task', () => {
   beforeEach(() => {
     cy.visit('https://example.cypress.io/todo')

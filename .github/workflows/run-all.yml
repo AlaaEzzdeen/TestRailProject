@@ -1,12 +1,9 @@
+name: Cypress Tests and TestRail Integration
+
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - '*'
-  
-name: Test
 
 env:
   TESTRAIL_USER: gr.eg.or.ymj.en.son6@gmail.com
@@ -14,36 +11,37 @@ env:
   TESTRAIL_URL: https://swe401pro.testrail.io/
   PROJECT_NAME: SWE 401
 
-jobs: 
- 
+jobs:
   cypress:
-    name: Cypress
+    name: Cypress Tests
     runs-on: ubuntu-latest
-    env:
-      WORKING_DIR: samples/javascript/cypress
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Execute Cypress tests
-        continue-on-error: true
-        uses: cypress-io/github-action@v5.3.0
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          command: npx cypress run --reporter junit --reporter-options mochaFile=reports/TEST-[hash].xml
-      - name: Setup Python
-        uses: actions/setup-python@v4.5.0
-        with: 
-          python-version: '3.x'
-      - name: Execute TestRail CLI to upload results
-        working-directory: ${{ env.WORKING_DIR }}
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress tests
+        run: npx cypress run --reporter junit --reporter-options mochaFile=reports/TEST-[hash].xml
+
+      - name: Upload results to TestRail
         run: |
           pip install trcli
-          junitparser merge --glob "sample-reports/TEST-*" "sample-reports/junit-report.xml"
+          junitparser merge --glob "reports/TEST-*" "reports/junit-report.xml"
           trcli -y \
             -h ${{ env.TESTRAIL_URL }} \
             --project "${{ env.PROJECT_NAME }}" \
             -u ${{ env.TESTRAIL_USER }} \
             -p "${{ env.TESTRAIL_USER_PW }}" \
             parse_junit \
-            -f "sample-reports/junit-report.xml" \
+            -f "reports/junit-report.xml" \
+            --section-id "2407" \
             --title "Cypress automated tests" \
             --run-description "GitHub workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
