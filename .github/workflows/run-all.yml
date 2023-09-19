@@ -37,7 +37,7 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           pip install trcli
-          junitparser merge --glob "reports/TEST-*" "reports/junit-report.xml"
+          junitparser merge --glob "samples/javascript/cypress/sample-reports/TEST-*" "samples/javascript/cypress/sample-reports/junit-report.xml"
           trcli -y \
             -h ${{ env.TESTRAIL_URL }} \
             --project "${{ env.PROJECT_NAME }}" \
