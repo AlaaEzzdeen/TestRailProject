@@ -14,7 +14,7 @@ env:
   TESTRAIL_URL: https://swe401pro.testrail.io/
   PROJECT_NAME: SWE 401
 
-jobs:
+jobs: 
 
   cypress:
     name: Cypress
