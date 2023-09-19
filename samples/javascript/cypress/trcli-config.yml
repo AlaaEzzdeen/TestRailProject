@@ -1,5 +1,5 @@
-host: https://INSTANCE-NAME.testrail.io
-username: USERNAME
-password: PASSWORD
-project: PROJECT NAME
+host: https://swe401pro.testrail.io
+username: gr.eg.or.ymj.en.son6@gmail.com
+password: TestRail*1
+project: SWE 401
 title: Cypress Automated Test Run (Code-first)
