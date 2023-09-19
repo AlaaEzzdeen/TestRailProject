@@ -7,7 +7,7 @@ describe('[interactions] Todo app list with a checked task', () => {
       .parent()
       .find('input[type=checkbox]')
       .check()
-  })
+  }) 
 
   it('can filter for uncompleted tasks', () => {
     cy.contains('Active').click()
